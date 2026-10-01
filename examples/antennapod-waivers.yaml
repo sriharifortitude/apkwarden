@@ -1,0 +1,20 @@
+# Example waivers for scanning AntennaPod 3.12.0 (de.danoeh.antennapod).
+#
+# These are one reviewer's reading of why each component is exported, not
+# statements from AntennaPod's maintainers, and no app audit was done to
+# write them. The point is the mechanism: each waiver names one rule at one
+# exact location, gives a reason, and expires, so the next exported
+# component someone adds still fails.
+waivers:
+  - rule: exported-receiver-unprotected
+    location: receiver androidx.media3.session.MediaButtonReceiver
+    reason: headset and Bluetooth buttons reach an app as MEDIA_BUTTON broadcasts, which only an exported receiver can get
+    expires: "2027-03-31"
+  - rule: exported-receiver-unprotected
+    location: receiver de.danoeh.antennapod.ui.widget.PlayerWidget
+    reason: a home-screen widget provider receives APPWIDGET_UPDATE from the launcher, outside this app
+    expires: "2027-03-31"
+  - rule: exported-service-unprotected
+    location: service de.danoeh.antennapod.playback.service.Media3PlaybackService
+    reason: a media session service is bound by system UI, Bluetooth and Android Auto controllers, so it has to be reachable from other processes
+    expires: "2027-03-31"
