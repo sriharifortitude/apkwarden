@@ -1,0 +1,4 @@
+/.apks/
+/bin/
+*.exe
+/dist/
